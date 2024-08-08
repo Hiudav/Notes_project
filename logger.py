@@ -1,8 +1,12 @@
 import pandas as pd
 import json
+import datetime
 
 def Notes_create():
-    pass
+    with open("Notes.json","a") as file:
+        json_dict = {"text": str(input("Введите заметку: ")),"date": str(datetime.datetime.now())}
+        json_serial=json.dumps(json_dict)
+        file.write(json_serial+"\n")
 
 def Notes_choose():
     pass
