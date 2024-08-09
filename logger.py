@@ -21,7 +21,9 @@ def Notes_between_date():
     pass
 
 def Notes_show():
-    pass
+    with open("Notes.json","r") as file:
+        for line in file.readlines():
+            print(line,end="")
 
 def Notes_read():
     pass
