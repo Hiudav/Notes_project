@@ -3,8 +3,10 @@ import json
 import datetime
 
 def Notes_create():
-    with open("Notes.json","a") as file:
-        json_dict = {"text": str(input("Введите заметку: ")),"date": str(datetime.datetime.now())}
+    with open(r"Notes_done.json","r") as file:
+        lines=sum(1 for line in file)+1
+    with open("Notes.json","a+") as file:
+        json_dict = {"id": int(lines),"text": str(input("Введите заметку: ")),"date": str(datetime.datetime.now())}
         json_serial=json.dumps(json_dict)
         file.write(json_serial+"\n")
 
