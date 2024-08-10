@@ -12,7 +12,14 @@ def Notes_create():
         file.write(json_serial+"\n")
 
 def Notes_choose():
-    pass
+    with open("Notes.json","r") as file:
+        choose_id=int(input("Введите id выбранной заметки: "))
+        for line in file:
+            if json.loads(line.strip("\n"))["id"]==choose_id:
+                print(json.loads(line.strip("\n")))
+                break
+        else:
+            print("Не нашёл такой заметки ")
 
 def Notes_edit():
     pass
