@@ -82,4 +82,6 @@ def Notes_show():
         print(df)
 
 def Notes_read():
-    pass
+    with open("Notes.json","a") as file:
+        with open(str(input('Формат JSON: {"id": id, "text": "text", "date": "dd.mm.yyyy"}\nВведите путь к импортируемуму JSON: \n')),"r") as file_import:
+            file.writelines(file_import.readlines())
