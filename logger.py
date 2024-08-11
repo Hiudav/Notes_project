@@ -7,7 +7,7 @@ def Notes_create():
         lines=sum(1 for line in file)+1
     with open("Notes.json","a+") as file:
         now=datetime.datetime.now()
-        json_dict = {"id": int(lines),"text": str(input("Введите заметку: ")),"date": str("{}.{}.{}".format(now.day,now.month,now.year))}
+        json_dict = {"id": int(lines),"title": str(input("Введите заголовок: ")), "text": str(input("Введите заметку: ")),"date": str("{}.{}.{}".format(now.day,now.month,now.year))}
         json_serial=json.dumps(json_dict)
         file.write(json_serial+"\n")
 
@@ -31,6 +31,8 @@ def Notes_edit():
                     json_dict=json.loads(edit_file[i].strip("\n"))
                     print("Изменяемая заметка: ")
                     print(json.loads(edit_file[i].strip("\n")))
+                    new_title=str(input("Введите новый заголовок: "))
+                    json_dict["title"]=new_title
                     new_note=str(input("Введите новую заметку: "))
                     json_dict["text"]=new_note
                     edit_file[i]=f'{json.dumps(json_dict)}\n'
@@ -62,7 +64,7 @@ def Notes_remove():
     
 
 def Notes_between_date():
-    with open("Notes_done.json","r") as file:
+    with open("Notes.json","r") as file:
             data=[json.loads(x.strip("\n")) for x in file]
             df=pd.DataFrame(data)
             while True:
@@ -83,5 +85,5 @@ def Notes_show():
 
 def Notes_read():
     with open("Notes.json","a") as file:
-        with open(str(input('Формат JSON: {"id": id, "text": "text", "date": "dd.mm.yyyy"}\nВведите путь к импортируемуму JSON: \n')),"r") as file_import:
+        with open(str(input('Формат JSON: {"id": id, "title": "title", "text": "text", "date": "dd.mm.yyyy"}\nВведите путь к импортируемуму JSON: \n')),"r") as file_import:
             file.writelines(file_import.readlines())
