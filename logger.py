@@ -23,25 +23,43 @@ def Notes_choose():
 
 def Notes_edit():
     with open("Notes.json","r") as file:
+        if_t=False
         edit_file=list(file.readlines())
         choose_id=int(input("Введите id выбранной заметки: "))
         for i in range(0,len(edit_file)):
                 if json.loads(edit_file[i].strip("\n"))["id"]==choose_id:
                     json_dict=json.loads(edit_file[i].strip("\n"))
+                    print("Изменяемая заметка: ")
                     print(json.loads(edit_file[i].strip("\n")))
                     new_note=str(input("Введите новую заметку: "))
                     json_dict["text"]=new_note
                     edit_file[i]=f'{json.dumps(json_dict)}\n'
-                    _if=True
+                    if_t=True
                     break
         else:
             print("Не нашёл такой заметки ")
-    if _if==True:
+    if if_t==True:
         with open("Notes.json","w") as file:
             file.writelines(edit_file)
 
 def Notes_remove():
-    pass
+    with open("Notes.json","r") as file:
+        if_t=False
+        edit_file=[]
+        choose_id=int(input("Введите id выбранной заметки: "))
+        for line in file:
+                if json.loads(line.strip("\n"))["id"]==choose_id:
+                    print("Удалённая заметка: ")
+                    print(json.loads(line.strip("\n")))
+                    if_t=True
+                else:
+                    edit_file.append(line)
+        if if_t==True:
+            with open("Notes.json","w") as file:
+                file.writelines(edit_file)
+        else:
+            print("Не нашёл такой заметки ")
+    
 
 def Notes_between_date():
     with open("Notes_done.json","r") as file:
